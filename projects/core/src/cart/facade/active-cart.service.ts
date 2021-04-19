@@ -43,11 +43,11 @@ import { MultiCartService } from './multi-cart.service';
   providedIn: 'root',
 })
 export class ActiveCartService implements OnDestroy {
-  private activeCart$: Observable<Cart>;
+  protected activeCart$: Observable<Cart>;
   protected subscription = new Subscription();
 
   // This stream is used for referencing carts in API calls.
-  private activeCartId$ = this.userIdService.getUserId().pipe(
+  protected activeCartId$ = this.userIdService.getUserId().pipe(
     // We want to wait with initialization of cartId until we have userId initialized
     // We have take(1) to not trigger this stream, when userId changes.
     take(1),
@@ -64,7 +64,7 @@ export class ActiveCartService implements OnDestroy {
     })
   );
 
-  private cartSelector$ = this.activeCartId$.pipe(
+  protected cartSelector$ = this.activeCartId$.pipe(
     switchMap((cartId) => this.multiCartService.getCartEntity(cartId))
   );
 
@@ -220,7 +220,7 @@ export class ActiveCartService implements OnDestroy {
     );
   }
 
-  private loadOrMerge(
+  protected loadOrMerge(
     cartId: string,
     userId: string,
     previousUserId: string
@@ -264,7 +264,7 @@ export class ActiveCartService implements OnDestroy {
     }
   }
 
-  private load(cartId: string, userId: string): void {
+  protected load(cartId: string, userId: string): void {
     // We want to load cart in every case apart from anonymous user and current cart combination
     if (!(userId === OCC_USER_ID_ANONYMOUS && cartId === OCC_CART_ID_CURRENT)) {
       this.multiCartService.loadCart({
@@ -277,7 +277,7 @@ export class ActiveCartService implements OnDestroy {
     }
   }
 
-  private addEntriesGuestMerge(cartEntries: OrderEntry[]) {
+  protected addEntriesGuestMerge(cartEntries: OrderEntry[]) {
     const entriesToAdd = cartEntries.map((entry) => ({
       productCode: entry.product.code,
       quantity: entry.quantity,
@@ -293,13 +293,13 @@ export class ActiveCartService implements OnDestroy {
       });
   }
 
-  private requireLoadedCartForGuestMerge() {
+  protected requireLoadedCartForGuestMerge() {
     return this.requireLoadedCart(
       this.cartSelector$.pipe(filter(() => !this.isGuestCart()))
     );
   }
 
-  private isCartCreating(
+  protected isCartCreating(
     cartState: ProcessesLoaderState<Cart>,
     cartId: string
   ) {
@@ -487,7 +487,7 @@ export class ActiveCartService implements OnDestroy {
     });
   }
 
-  private isEmail(str: string): boolean {
+  protected isEmail(str: string): boolean {
     if (str) {
       return str.match(EMAIL_PATTERN) ? true : false;
     }
@@ -499,7 +499,7 @@ export class ActiveCartService implements OnDestroy {
    * Temporary method to merge guest cart with user cart because of backend limitation
    * This is for an edge case
    */
-  private guestCartMerge(cartId: string): void {
+  protected guestCartMerge(cartId: string): void {
     let cartEntries: OrderEntry[];
     this.getEntries()
       .pipe(take(1))
@@ -510,13 +510,13 @@ export class ActiveCartService implements OnDestroy {
       });
   }
 
-  private isEmpty(cart: Cart): boolean {
+  protected isEmpty(cart: Cart): boolean {
     return (
       !cart || (typeof cart === 'object' && Object.keys(cart).length === 0)
     );
   }
 
-  private isJustLoggedIn(userId: string, previousUserId: string): boolean {
+  protected isJustLoggedIn(userId: string, previousUserId: string): boolean {
     return (
       userId !== OCC_USER_ID_ANONYMOUS && // not logged out
       previousUserId !== userId // *just* logged in / switched to ASM emulation

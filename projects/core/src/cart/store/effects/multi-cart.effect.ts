@@ -22,5 +22,5 @@ export class MultiCartEffects {
     map((payload) => new CartActions.CartProcessesIncrement(payload.cartId))
   );
 
-  constructor(private actions$: Actions) {}
+  constructor(protected actions$: Actions) {}
 }

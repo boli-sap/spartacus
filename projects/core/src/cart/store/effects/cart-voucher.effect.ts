@@ -11,9 +11,9 @@ import { CartActions } from '../actions/index';
 @Injectable()
 export class CartVoucherEffects {
   constructor(
-    private actions$: Actions,
-    private cartVoucherConnector: CartVoucherConnector,
-    private messageService: GlobalMessageService
+    protected actions$: Actions,
+    protected cartVoucherConnector: CartVoucherConnector,
+    protected messageService: GlobalMessageService
   ) {}
 
   @Effect()
@@ -95,7 +95,7 @@ export class CartVoucherEffects {
     })
   );
 
-  private showGlobalMessage(
+  protected showGlobalMessage(
     text: string,
     param: string,
     messageType: GlobalMessageType
