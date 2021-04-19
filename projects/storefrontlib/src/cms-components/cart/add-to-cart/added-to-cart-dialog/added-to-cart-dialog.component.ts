@@ -48,7 +48,7 @@ export class AddedToCartDialogComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
 
-  private quantityControl$: Observable<FormControl>;
+  protected quantityControl$: Observable<FormControl>;
 
   constructor(
     protected modalService: ModalService,
@@ -102,7 +102,7 @@ export class AddedToCartDialogComponent implements OnInit {
     );
   }
 
-  private getFormControl(entry: OrderEntry): FormControl {
+  protected getFormControl(entry: OrderEntry): FormControl {
     if (!this.form.get('quantity')) {
       const quantity = new FormControl(entry.quantity, { updateOn: 'blur' });
       this.form.addControl('quantity', quantity);

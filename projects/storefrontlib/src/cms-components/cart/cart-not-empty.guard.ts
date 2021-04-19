@@ -29,7 +29,7 @@ export class CartNotEmptyGuard implements CanActivate {
     );
   }
 
-  private isEmpty(cart: Cart): boolean {
+  protected isEmpty(cart: Cart): boolean {
     return cart && !cart.totalItems;
   }
 }

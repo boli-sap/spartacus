@@ -27,7 +27,7 @@ import { CartItemComponentOptions } from '../cart-item/cart-item.component';
 })
 export class CartItemListComponent implements OnInit, OnDestroy {
   private subscription = new Subscription();
-  private userId: string;
+  protected userId: string;
 
   @Input() readonly: boolean = false;
 
@@ -40,7 +40,7 @@ export class CartItemListComponent implements OnInit, OnDestroy {
 
   @Input() cartId: string;
 
-  private _items: OrderEntry[] = [];
+  protected _items: OrderEntry[] = [];
   form: FormGroup = this.featureConfigService?.isLevel('3.1')
     ? new FormGroup({})
     : undefined;
@@ -117,7 +117,7 @@ export class CartItemListComponent implements OnInit, OnDestroy {
    * The items we're getting form the input do not have a consistent model.
    * In case of a `consignmentEntry`, we need to normalize the data from the orderEntry.
    */
-  private resolveItems(items: OrderEntry[]): void {
+  protected resolveItems(items: OrderEntry[]): void {
     if (!items) {
       this._items = [];
       return;
@@ -155,7 +155,7 @@ export class CartItemListComponent implements OnInit, OnDestroy {
     }
   }
 
-  private createForm(): void {
+  protected createForm(): void {
     if (!this.featureConfigService?.isLevel('3.1')) {
       this.form = new FormGroup({});
     }
