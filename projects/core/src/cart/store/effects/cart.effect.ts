@@ -26,7 +26,7 @@ import { getCartHasPendingProcessesSelectorFactory } from '../selectors/multi-ca
 
 @Injectable()
 export class CartEffects {
-  private contextChange$ = this.actions$.pipe(
+  protected contextChange$ = this.actions$.pipe(
     ofType(
       SiteContextActions.CURRENCY_CHANGE,
       SiteContextActions.LANGUAGE_CHANGE
@@ -326,8 +326,8 @@ export class CartEffects {
   );
 
   constructor(
-    private actions$: Actions,
-    private cartConnector: CartConnector,
-    private store: Store<StateWithMultiCart>
+    protected actions$: Actions,
+    protected cartConnector: CartConnector,
+    protected store: Store<StateWithMultiCart>
   ) {}
 }

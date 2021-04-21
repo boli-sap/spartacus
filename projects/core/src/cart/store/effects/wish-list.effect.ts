@@ -148,10 +148,10 @@ export class WishListEffects {
   );
 
   constructor(
-    private actions$: Actions,
-    private cartConnector: CartConnector,
-    private saveCartConnector: SaveCartConnector,
-    private userIdService: UserIdService,
-    private store: Store<StateWithMultiCart>
+    protected actions$: Actions,
+    protected cartConnector: CartConnector,
+    protected saveCartConnector: SaveCartConnector,
+    protected userIdService: UserIdService,
+    protected store: Store<StateWithMultiCart>
   ) {}
 }

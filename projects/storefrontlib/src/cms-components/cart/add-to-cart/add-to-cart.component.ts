@@ -46,7 +46,7 @@ export class AddToCartComponent implements OnInit, OnDestroy {
   constructor(
     protected modalService: ModalService,
     protected currentProductService: CurrentProductService,
-    private cd: ChangeDetectorRef,
+    protected cd: ChangeDetectorRef,
     protected activeCartService: ActiveCartService
   ) {}
 
@@ -72,7 +72,7 @@ export class AddToCartComponent implements OnInit, OnDestroy {
     }
   }
 
-  private setStockInfo(product: Product): void {
+  protected setStockInfo(product: Product): void {
     this.quantity = 1;
     this.hasStock =
       product.stock && product.stock.stockLevelStatus !== 'outOfStock';
@@ -100,7 +100,7 @@ export class AddToCartComponent implements OnInit, OnDestroy {
       });
   }
 
-  private openModal() {
+  protected openModal() {
     let modalInstance: any;
     this.modalRef = this.modalService.open(AddedToCartDialogComponent, {
       centered: true,

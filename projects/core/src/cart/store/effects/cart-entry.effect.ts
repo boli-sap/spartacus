@@ -11,7 +11,7 @@ import { CartActions } from '../actions/index';
 
 @Injectable()
 export class CartEntryEffects {
-  private contextChange$ = this.actions$.pipe(
+  protected contextChange$ = this.actions$.pipe(
     ofType(
       SiteContextActions.CURRENCY_CHANGE,
       SiteContextActions.LANGUAGE_CHANGE
@@ -133,7 +133,7 @@ export class CartEntryEffects {
   );
 
   constructor(
-    private actions$: Actions,
-    private cartEntryConnector: CartEntryConnector
+    protected actions$: Actions,
+    protected cartEntryConnector: CartEntryConnector
   ) {}
 }
